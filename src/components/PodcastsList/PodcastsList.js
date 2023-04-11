@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import PodcastCard from "../PodcastCard/PodcastCard";
 import fetchPodcasts from "../../api/podcastApi";
-import "./PodcastsList.css"
+import "./PodcastsList.scss"
+import { useContext } from "react";
+import { PodcastContext } from "../../contexts/PodcastContext";
 
-const PodcastsList = () => {
-  const [podcasts, setPodcasts] = useState([]);
+const PodcastsList = (props) => {
+
+  const { podcasts, setPodcasts } = useContext(PodcastContext);
 
   useEffect(() => {
     const getPodcasts = async () => {
@@ -20,8 +23,8 @@ const PodcastsList = () => {
 
   return (
     <div className="podcasts-list">
-      {podcasts.map((podcast) => (
-        <PodcastCard key={podcast.id.attributes["im:id"]} podcast={podcast} />
+      {podcasts?.map((podcast, index) => (
+        <PodcastCard key={index} podcast={podcast} />
       ))}
     </div>
   );
