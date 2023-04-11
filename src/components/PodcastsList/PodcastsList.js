@@ -6,7 +6,6 @@ import { useContext } from "react";
 import { PodcastContext } from "../../contexts/PodcastContext";
 
 const PodcastsList = (props) => {
-
   const { podcasts, setPodcasts } = useContext(PodcastContext);
 
   useEffect(() => {
@@ -20,6 +19,7 @@ const PodcastsList = (props) => {
     };
     getPodcasts();
   }, []);
+console.log(podcasts);
 
   return (
     <div className="podcasts-list">

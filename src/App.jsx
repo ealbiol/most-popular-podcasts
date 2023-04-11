@@ -9,11 +9,11 @@ const App = () => {
   const [podcasts, setPodcasts] = useState(null);
 
   return (
-    <Layout>
-      <PodcastContext.Provider value={{ podcasts, setPodcasts }}>
+    <PodcastContext.Provider value={{ podcasts, setPodcasts }}>
+      <Layout>
         <RouterProvider router={routes} />
-      </PodcastContext.Provider>
-    </Layout>
+      </Layout>
+    </PodcastContext.Provider>
 
   );
 };

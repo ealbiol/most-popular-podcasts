@@ -19,7 +19,7 @@ const PodcastCard = ({ podcast }) => {
       <CardContent className="podcast-details">
         <Typography gutterBottom variant="h6" component="div">{title.label}</Typography>
         <Typography variant="body2" color="text.secondary">Author: {artist.label}</Typography>
-        {/*<Typography variant="body2" color="text.secondary">{releaseDate.attributes.label}</Typography>*/}
+        <Typography variant="body2" color="text.secondary">{releaseDate.attributes.label}</Typography>
       </CardContent>
     </Card>
   );

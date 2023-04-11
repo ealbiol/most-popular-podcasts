@@ -3,7 +3,9 @@ import Header from './Header/Header';
 import SearchBar from './SearchBar/SearchBar';
 import NumberChip from './NumberChip/NumberChip';
 
+
 function Layout({ children }) {
+
     return (
         <>
             <Header />
