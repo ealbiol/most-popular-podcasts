@@ -19,11 +19,11 @@ const PodcastsList = () => {
   }, []);
 
   return (
-    <>
+    <div className="podcasts-list">
       {podcasts.map((podcast) => (
         <PodcastCard key={podcast.id.attributes["im:id"]} podcast={podcast} />
       ))}
-    </>
+    </div>
   );
 };
 

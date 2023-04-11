@@ -7,10 +7,10 @@ const PodcastCard = ({ podcast }) => {
   const imageUrl = image[2].label;
 
   return (
-    <Card sx={{ maxWidth: 345 }} className="podcast-card">
+    <Card sx={{ width:345 }} className="podcast-card">
       <CardMedia
         component="img"
-        height="100%"
+        height="50%"
         image={imageUrl}
         alt={`Cover art for ${title.label}`}
       />

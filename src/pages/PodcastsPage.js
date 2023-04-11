@@ -5,7 +5,6 @@ export function PodcastsPage() {
     return (
         <div>
             <PodcastsList />
-
         </div>
     )
 }
