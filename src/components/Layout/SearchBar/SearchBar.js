@@ -31,6 +31,7 @@ function SearchBar(props) {
         onChange={handleSearchChange}
         placeholder="Filter Podcasts..."
         onKeyUp={handleKeyUp}
+        sx={{ width: "400px", marginLeft:"20px" }}
         {...props}
       />
     </>

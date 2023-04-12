@@ -4,6 +4,8 @@ import fetchPodcasts from "../../api/podcastApi";
 import "./PodcastsList.scss"
 import { useContext } from "react";
 import { PodcastContext } from "../../contexts/PodcastContext";
+import { Box, Grid } from '@mui/material';
+
 
 const PodcastsList = (props) => {
   const { podcasts, setPodcasts } = useContext(PodcastContext);
@@ -19,15 +21,28 @@ const PodcastsList = (props) => {
     };
     getPodcasts();
   }, []);
-console.log(podcasts);
+  console.log(podcasts);
 
   return (
-    <div className="podcasts-list">
-      {podcasts?.map((podcast, index) => (
-        <PodcastCard key={index} podcast={podcast} />
-      ))}
-    </div>
+
+    <Grid container sx={{ display: "flex", justifyContent: "center" }}>
+        <Box
+          display="grid"
+          gridTemplateColumns="repeat(4, 1fr)"
+          sx={{ m: 4 }}
+          gap={4}
+          style={{ border: "1px solid red" }}
+        >
+          {podcasts?.map((podcast, index) => (
+            <PodcastCard key={index} podcast={podcast} />
+          ))}
+        </Box>
+
+
+    </Grid>
   );
 };
 
 export default PodcastsList;
+
+
