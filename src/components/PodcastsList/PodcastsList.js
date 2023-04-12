@@ -5,19 +5,34 @@ import "./PodcastsList.scss"
 import { useContext } from "react";
 import { PodcastContext } from "../../contexts/PodcastContext";
 import { Box, Grid } from '@mui/material';
-
+import { checkIfNeedsRecall } from "../utils/PodcastUtils";
 
 const PodcastsList = (props) => {
-  const { podcasts, setPodcasts } = useContext(PodcastContext);
+  const { podcasts, setPodcasts, podcastFiltered, setNumPodcast } = useContext(PodcastContext);
 
   useEffect(() => {
     const getPodcasts = async () => {
-      try {
-        const data = await fetchPodcasts();
-        setPodcasts(data.feed.entry);
-      } catch (error) {
-        console.error(error);
+      const recall = checkIfNeedsRecall();
+      if (recall?.needed) {
+        try {
+          const data = await fetchPodcasts();
+          const entry = data?.feed?.entry;
+
+          setPodcasts(entry);
+          setNumPodcast(entry.length);
+          const localStorage = {
+            entry,
+            date: new Date()
+          }
+          window.localStorage.setItem('podcast', JSON.stringify(localStorage));
+        } catch (error) {
+          console.error(error);
+        }
+      } else {
+        setPodcasts(recall.entry);
+        setNumPodcast(recall.entry.length);
       }
+
     };
     getPodcasts();
   }, []);
@@ -26,17 +41,23 @@ const PodcastsList = (props) => {
   return (
 
     <Grid container sx={{ display: "flex", justifyContent: "center" }}>
-        <Box
-          display="grid"
-          gridTemplateColumns="repeat(4, 1fr)"
-          sx={{ m: 4 }}
-          gap={4}
-          style={{ border: "1px solid red" }}
-        >
-          {podcasts?.map((podcast, index) => (
+      <Box
+        display="grid"
+        gridTemplateColumns="repeat(4, 1fr)"
+        gap={3}
+      >
+        {podcastFiltered && (
+          podcastFiltered?.map((podcast, index) => (
             <PodcastCard key={index} podcast={podcast} />
-          ))}
-        </Box>
+          ))
+        )}
+        {!podcastFiltered && (
+          podcasts?.map((podcast, index) => (
+            <PodcastCard key={index} podcast={podcast} />
+          ))
+        )}
+
+      </Box>
 
 
     </Grid>

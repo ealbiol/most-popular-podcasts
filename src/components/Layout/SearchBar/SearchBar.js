@@ -3,14 +3,15 @@ import { TextField } from '@mui/material';
 import { PodcastContext } from '../../../contexts/PodcastContext';
 
 function SearchBar(props) {
-  const [searchTerm, setSearchTerm] = useState('');
-  const { podcasts, setPodcasts } = useContext(PodcastContext);
-
+  const [term, setTerm] = useState('');
+  const { podcasts, setPodcastFiltered, setNumPodcast } = useContext(PodcastContext);
+  
   const handleSearchChange = (event) => {
-    setSearchTerm(event.target.value);
+    // setSearchTerm(event.target.value);
+    handleKeyUp(event.target.value);
   };
 
-  const handleKeyUp = (event) => {
+  const handleKeyUp = (searchTerm) => {
     console.log(`Searching for "${searchTerm}"`);
 
     const filteredPodcasts = podcasts.filter((podcast) => {
@@ -21,16 +22,18 @@ function SearchBar(props) {
       return title.includes(searchTermLowerCase) || artistName.includes(searchTermLowerCase);
     });
 
-    setPodcasts(filteredPodcasts);
+    setPodcastFiltered(filteredPodcasts);
+    setNumPodcast(filteredPodcasts.length);
+    setTerm(searchTerm);
   };
 
   return (
     <>
       <TextField
-        value={searchTerm}
+        value={term}
         onChange={handleSearchChange}
         placeholder="Filter Podcasts..."
-        onKeyUp={handleKeyUp}
+        // onKeyUp={handleKeyUp}
         sx={{ width: "400px", marginLeft:"20px" }}
         {...props}
       />
