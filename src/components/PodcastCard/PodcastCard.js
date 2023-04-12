@@ -6,7 +6,7 @@ import { PodcastContext } from "../../contexts/PodcastContext";
 import "./PodcastCard.scss"
 
 const PodcastCard = ({ podcast }) => {
-  const { setPodcastDetails } = useContext(PodcastContext);
+  const { podcastDetails, setPodcastDetails } = useContext(PodcastContext);
   const navigate = useNavigate();
 
   const {
@@ -24,7 +24,7 @@ const PodcastCard = ({ podcast }) => {
     const attributes = podcast.id.attributes;
     const idPodcast = attributes["im:id"];
     console.log(podcast);
-    navigate(`/podcasts/${idPodcast}`);
+    navigate(`/podcast/${idPodcast}`);
   }
 
 

@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { RouterProvider } from "react-router-dom";
-import { routes } from "./routes/routes";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Layout from "./components/Layout/Layout";
 import { PodcastContext } from "./contexts/PodcastContext";
 
+import PodcastDetails from "./pages/PodcastDetails";
+import PodcastsPage from "./pages/PodcastsPage";
 
 const App = () => {
   const [podcasts, setPodcasts] = useState(null);
@@ -21,13 +22,18 @@ const App = () => {
         numPodcast,
         setNumPodcast,
         podcastDetails,
-        setPodcastDetails
-      }}>
-      <Layout>
-        <RouterProvider router={routes} />
-      </Layout>
+        setPodcastDetails,
+      }}
+    >
+      <BrowserRouter>
+        <Layout>
+          <Routes>
+            <Route path="/" element={<PodcastsPage />} />
+            <Route path="podcast/:id" element={<PodcastDetails />} />
+          </Routes>
+        </Layout>
+      </BrowserRouter>
     </PodcastContext.Provider>
-
   );
 };
 

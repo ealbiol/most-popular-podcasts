@@ -1,10 +1,9 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { Chip, Stack } from '@mui/material';
-import fetchPodcasts from "../../../api/podcastApi";
 import { PodcastContext } from "../../../contexts/PodcastContext";
 
 export default function NumberChip() {
-    const {numPodcast} = useContext(PodcastContext);
+    const { numPodcast } = useContext(PodcastContext);
 
     return (
         <Stack direction="row" spacing={1}>

@@ -3,7 +3,6 @@ import moment from "moment";
 export const checkIfDayPassed = (date) => {
     const hours = moment().diff(moment(date), 'hours');
 
-    console.log("Compare", hours);
     const dayPassed = (hours > 24);
     return dayPassed
 }
