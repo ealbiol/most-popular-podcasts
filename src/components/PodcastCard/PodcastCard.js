@@ -1,9 +1,10 @@
 import React, {useEffect} from "react";
-import { useNavigate } from 'react-router-dom';
+import { Router, useNavigate } from 'react-router-dom';
 import { Card, CardMedia, CardContent, Typography, Link, Box } from '@mui/material';
 import { useContext } from "react";
 import { PodcastContext } from "../../contexts/PodcastContext";
 import "./PodcastCard.scss"
+import { Link as RouterLink} from "react-router-dom";
 
 const PodcastCard = ({ podcast }) => {
   const { podcastDetails, setPodcastDetails } = useContext(PodcastContext);
@@ -19,13 +20,18 @@ const PodcastCard = ({ podcast }) => {
   const imageUrl = image[2].label;
 
 
-  const handlePodcastDetails = () => {
+  const handlePodcastDetails = (e) => {
+    e.preventDefault();
     setPodcastDetails(podcast);
-    const attributes = podcast.id.attributes;
-    const idPodcast = attributes["im:id"];
-    console.log(podcast);
-    navigate(`/podcast/${idPodcast}`);
   }
+  useEffect(() => {
+    if(podcastDetails){
+      const attributes = podcast.id.attributes;
+      const idPodcast = attributes["im:id"];
+      navigate(`/podcast/${idPodcast}`);
+    }
+  }, [podcastDetails])
+  
 
 
   return (
