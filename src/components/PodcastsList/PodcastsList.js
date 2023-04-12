@@ -39,11 +39,15 @@ const PodcastsList = (props) => {
   console.log(podcasts);
 
   return (
-
     <Grid container sx={{ display: "flex", justifyContent: "center" }}>
       <Box
         display="grid"
-        gridTemplateColumns="repeat(4, 1fr)"
+        gridTemplateColumns={{
+          xs: "repeat(1, 1fr)",
+          sm: "repeat(2, 1fr)",
+          md: "repeat(3, 1fr)",
+          lg: "repeat(4, 1fr)",
+        }}
         gap={3}
       >
         {podcastFiltered && (
@@ -56,10 +60,7 @@ const PodcastsList = (props) => {
             <PodcastCard key={index} podcast={podcast} />
           ))
         )}
-
       </Box>
-
-
     </Grid>
   );
 };
