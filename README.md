@@ -21,6 +21,10 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
+### `npm run dev`
+
+Start local development
+
 ### `npm run start`
 
 This will create a production build to test in local with serve.
@@ -31,4 +35,7 @@ This will create a production build to test in local with serve.
 ### Local storage:
 The podcast details and episodes are currently stored on local storage, but it's important to note that if too many podcasts are clicked, errors may arise due to local storage becoming full. To avoid this issue, a potential solution would be to set up a node server to store the podcast and episode data in a more efficient manner.
 
-### 
+### Displayment of Podcast episodes
+With local development ('npm run dev') you will be able to see all episodes of each podcast. The process to fix that issue in production build is still ongoing.
+
+For this reason deploy local development is the most recommend so as to date.
