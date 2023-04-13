@@ -22,7 +22,6 @@ export default function CardPodcaster(props) {
 
     }
 
-    console.log("PODCAST ID", podcastId);
     return (
         <Box>
             <Card align="center" sx={{ width: 245 }}>
@@ -40,7 +39,6 @@ export default function CardPodcaster(props) {
                         <Typography align="left" variant="subtitle2" sx={{ fontStyle: 'italic', marginBottom: "18px" }}>by {artist}</Typography>
                     </Link>
                     <Divider />
-                    {/*<Typography variant="subtitle1" color="text.secondary">{artist}</Typography>*/}
                     <Typography align="left" variant="subtitle2" sx={{ fontWeight: 'bold', marginTop: "18px" }}>Description:</Typography>
                     <Typography align="left" variant="subtitle2" sx={{ fontStyle: 'italic' }}>{description}</Typography>
                 </CardContent>

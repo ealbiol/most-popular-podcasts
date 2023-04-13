@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import PodcastCard from "../PodcastCard/PodcastCard";
 import { fetchPodcasts } from "../../api/podcastApi";
-import "./PodcastsList.scss"
 import { useContext } from "react";
 import { PodcastContext } from "../../contexts/PodcastContext";
 import { Box, Grid } from '@mui/material';
@@ -35,7 +34,6 @@ const PodcastsList = (props) => {
     };
     getPodcasts();
   }, []);
-  console.log(podcasts);
 
   return (
     <Grid container sx={{ display: "flex", justifyContent: "center" }}>

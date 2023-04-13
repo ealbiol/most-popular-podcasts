@@ -9,10 +9,8 @@ const PodcastCard = ({ podcast }) => {
   const navigate = useNavigate();
 
   const {
-    //title, 
     "im:artist": artist,
     "im:image": image,
-    //"im:releaseDate": releaseDate, 
     "im:name": name
   } = podcast;
   const imageUrl = image[2].label;
@@ -45,9 +43,8 @@ const PodcastCard = ({ podcast }) => {
           />
           <Card align="center" sx={{ width: 245 }}>
             <CardContent sx={{ paddingTop: "100px" }}>
-              <Typography gutterBottom variant="h6" component="div">{name.label}</Typography>
+              <Typography gutterBottom variant="h6" component="div">{name?.label}</Typography>
               <Typography variant="body2" color="text.secondary">Author: {artist.label}</Typography>
-              {/*<Typography variant="body2" color="text.secondary">{releaseDate.attributes.label}</Typography>*/}
             </CardContent>
           </Card>
         </Box>
