@@ -44,7 +44,7 @@ const PodcastCard = ({ podcast }) => {
             alt={`Cover for ${artist.label}`}
           />
           <Card align="center" sx={{ width: 245 }}>
-            <CardContent style={{ paddingTop: "100px" }}>
+            <CardContent sx={{ paddingTop: "100px" }}>
               <Typography gutterBottom variant="h6" component="div">{name.label}</Typography>
               <Typography variant="body2" color="text.secondary">Author: {artist.label}</Typography>
               {/*<Typography variant="body2" color="text.secondary">{releaseDate.attributes.label}</Typography>*/}

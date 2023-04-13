@@ -144,7 +144,7 @@ export default function PodcastDetails() {
                   <React.Fragment key={index}>
                     <StyledTableRow>
                       <StyledTableCell component="th" scope="row">
-                        <Link onClick={() => handleEpisodeDetails(episode)}>
+                        <Link sx={{cursor:"pointer"}} onClick={() => handleEpisodeDetails(episode)}>
                           {episode.trackName.substring(episode.trackName.indexOf('|') + 1).trim().replace(/^"(.*)"$/, '$1')}
                         </Link>
                       </StyledTableCell>

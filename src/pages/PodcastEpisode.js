@@ -35,15 +35,10 @@ export default function PodcastEpisode() {
                                 {selectedEpisode.shortDescription}
                             </Typography>
                             <Divider />
-
                             <Typography sx={{ marginTop: "18px" }} variant="body2">
-                                <audio style={{width:"100%"}} controls>
+                                <audio style={{ width: "100%" }} controls>
                                     <source src={selectedEpisode.episodeUrl} type="audio/mpeg" />
-                                    Your browser does not support the audio element.
                                 </audio>
-
-
-
                             </Typography>
                         </CardContent>
                     </Card>
