@@ -18,24 +18,57 @@ import {
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import { styled } from '@mui/material/styles';
 import { fetchEpisodesPodcast } from '../api/podcastApi';
+import { episodesNeedRecall } from '../components/utils/PodcastUtils';
+import CardPodcaster from '../components/CardPodcaster/CardPodcaster';
+import { useNavigate } from 'react-router-dom';
 
 export default function PodcastDetails() {
-  const { podcastDetails } = useContext(PodcastContext);
+  const { podcastDetails, setSelectedEpisode } = useContext(PodcastContext);
   const [episodesPodcast, setEpisodesPodcast] = useState(null)
   const [episodesCount, setEpisodesCount] = useState(null)
 
+  const navigate = useNavigate();
 
-  console.log(episodesPodcast);
+  const handleEpisodeDetails = (episode) => {
+    setSelectedEpisode(episode);
+    console.log("tracked", episode.trackId);
+    navigate(`/podcast/${podcastDetails['id']['attributes']['im:id']}/episode/${episode.trackId}`)
+  }
+  
+
+  const getEpisodesRecord = async (response, id) => {
+    let record = [];
+    if (response.needed) {
+      const data = await fetchEpisodesPodcast(id);
+      const episodesRecord = {
+        id_podcast: id,
+        date: new Date(),
+        episodes: data.results
+      }
+      record = episodesRecord;
+
+    } else {
+      record = response.episodes;
+    }
+    return record;
+  }
 
   useEffect(() => {
     console.log("DETAILS IN PODDETAILS", podcastDetails['id']['attributes']['im:id'])
     const id = podcastDetails['id']['attributes']['im:id'];
     const getEpisodes = async (id) => {
       try {
-        const data = await fetchEpisodesPodcast(id);
-        setEpisodesCount(data.resultCount)
-        setEpisodesPodcast(data.results.slice(1))
-        console.log("Episodes: ", data);
+        const arrEpisodes = JSON.parse(window.localStorage.getItem('podcastEpisodes')) || [];
+
+        const response = episodesNeedRecall(arrEpisodes, id);
+        const record = await getEpisodesRecord(response, id);
+        console.log("RECORD", record);
+        arrEpisodes.push(record);
+        window.localStorage.setItem('podcastEpisodes', JSON.stringify(arrEpisodes));
+
+        setEpisodesCount(record.episodes.length - 1)
+        setEpisodesPodcast(record.episodes.slice(1))
+
       } catch (error) {
         console.error(error);
       }
@@ -45,7 +78,7 @@ export default function PodcastDetails() {
 
 
   const name = podcastDetails['im:name']['label'];
-  //const artist = podcastDetails['im:artist']['label'];
+  const artist = podcastDetails['im:artist']['label'];
   const description = podcastDetails.summary.label;
   const imageUrl = podcastDetails['im:image'][2]['label'];
 
@@ -73,25 +106,8 @@ export default function PodcastDetails() {
   return (
     <>
       <Box sx={{ display: "flex", justifyContent: "center", gap: "40px" }}>
-        <Box>
-          <Card align="center" sx={{ width: 245 }}>
-            <CardMedia
-              component="img"
-              sx={{ borderRadius: '4%', width: "170px", m: "1", marginTop: "25px", marginBottom: "10px" }}
-              image={imageUrl}
-            />
-            <CardContent>
-              <Divider />
-              <Typography align="left" variant="subtitle2" sx={{ fontWeight: 'bold', marginTop: "18px" }}>{name}</Typography>
-              <Typography align="left" variant="subtitle2" sx={{ fontStyle: 'italic', marginBottom: "18px" }}>Song by: {name}</Typography>
-              <Divider />
-              {/*<Typography variant="subtitle1" color="text.secondary">{artist}</Typography>*/}
-              <Typography align="left" variant="subtitle2" sx={{ fontWeight: 'bold', marginTop: "18px" }}>Description:</Typography>
-              <Typography align="left" variant="subtitle2" sx={{ fontStyle: 'italic' }}>{description}</Typography>
-            </CardContent>
-          </Card>
-        </Box>
 
+        <CardPodcaster imageUrl={imageUrl} name={name} artist={artist} description={description} />
 
         <br />
         <br />
@@ -105,7 +121,7 @@ export default function PodcastDetails() {
 
           <br />
 
-          <TableContainer sx={{marginBottom:"25px"}} component={Paper}>
+          <TableContainer sx={{ marginBottom: "25px" }} component={Paper}>
             <Table sx={{ minWidth: 1000 }} aria-label="customized table">
               <TableHead>
                 <TableRow>
@@ -120,10 +136,12 @@ export default function PodcastDetails() {
                   <React.Fragment key={index}>
                     <StyledTableRow>
                       <StyledTableCell component="th" scope="row">
-                        {episode.trackName}
+                        <Link onClick={() => handleEpisodeDetails(episode)}>
+                          {episode.trackName.substring(episode.trackName.indexOf('|') + 1).trim().replace(/^"(.*)"$/, '$1')}
+                        </Link>
                       </StyledTableCell>
                       <StyledTableCell align="right">{episode.releaseDate.slice(0, 10)}</StyledTableCell>
-                      <StyledTableCell align="right">{new Date(episode.trackTimeMillis).toISOString().slice(11, 16)}</StyledTableCell>
+                      <StyledTableCell align="right">{episode.trackTimeMillis ? new Date(episode.trackTimeMillis).toISOString().slice(11, 16) : ""}</StyledTableCell>
                     </StyledTableRow>
                   </React.Fragment>
                 ))}

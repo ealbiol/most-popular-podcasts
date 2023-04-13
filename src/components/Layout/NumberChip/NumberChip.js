@@ -7,7 +7,7 @@ export default function NumberChip() {
 
     return (
         <Stack direction="row" spacing={1}>
-            <Chip label={numPodcast} color="primary" />
+            <Chip sx={{ fontWeight: "bold", fontSize:"20px" }} label={numPodcast} color="primary" />
         </Stack>
     )
 }
