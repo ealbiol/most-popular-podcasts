@@ -1,6 +1,8 @@
+const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+
 export const fetchPodcasts = async () => {
   const response = await fetch(
-    "https://itunes.apple.com/us/rss/toppodcasts/limit=100/genre=1310/json"
+    proxyUrl + "https://itunes.apple.com/us/rss/toppodcasts/limit=100/genre=1310/json"
   );
 
   if (!response.ok) {
@@ -10,12 +12,10 @@ export const fetchPodcasts = async () => {
   const data = await response.json();
   return data;
 };
-
-
 
 export const fetchEpisodesPodcast = async (id) => {
   const response = await fetch(
-    `https://itunes.apple.com/lookup?id=${id}&country=US&media=podcast&entity=podcastEpisode&limit=1000`
+    proxyUrl + `https://itunes.apple.com/lookup?id=${id}&country=US&media=podcast&entity=podcastEpisode&limit=1000`
   );
 
   if (!response.ok) {
@@ -26,10 +26,9 @@ export const fetchEpisodesPodcast = async (id) => {
   return data;
 };
 
-
 export const fetchSingleEpisodePodcast = async (id) => {
   const response = await fetch(
-    `https://itunes.apple.com/lookup?id=${id}`
+    proxyUrl + `https://itunes.apple.com/lookup?id=${id}`
   );
 
   if (!response.ok) {
