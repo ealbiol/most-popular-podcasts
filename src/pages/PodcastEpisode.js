@@ -12,9 +12,7 @@ import CardPodcaster from '../components/CardPodcaster/CardPodcaster';
 export default function PodcastEpisode() {
     const { podcastDetails, selectedEpisode } = useContext(PodcastContext);
 
-    const name = podcastDetails['im:name'] ? podcastDetails['im:name']['label'] : '';
-
-    //const name = podcastDetails['im:name']['label'];
+    const name = podcastDetails['im:name']['label'];
     const artist = podcastDetails['im:artist']['label'];
     const description = podcastDetails.summary.label;
     const imageUrl = podcastDetails['im:image'][2]['label'];
