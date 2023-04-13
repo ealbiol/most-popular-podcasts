@@ -33,7 +33,7 @@ const PodcastsList = (props) => {
       }
     };
     getPodcasts();
-  }, []);
+  }, [setNumPodcast, setPodcasts]);
 
   return (
     <Grid container sx={{ display: "flex", justifyContent: "center" }}>

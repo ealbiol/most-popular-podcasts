@@ -27,7 +27,7 @@ const PodcastCard = ({ podcast }) => {
       const idPodcast = attributes["im:id"];
       navigate(`/podcast/${idPodcast}`);
     }
-  }, [podcastDetails])
+  }, [navigate, podcastDetails])
   
 
 

@@ -70,7 +70,7 @@ export default function PodcastDetails() {
       }
     };
     getEpisodes(id)
-  }, [])
+  }, [podcastDetails])
 
 
   const name = podcastDetails['im:name']['label'];
