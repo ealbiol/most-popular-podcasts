@@ -23,6 +23,8 @@ export default function PodcastDetails() {
   const { podcastDetails } = useContext(PodcastContext);
   const [episodesPodcast, setEpisodesPodcast] = useState(null)
   const [episodesCount, setEpisodesCount] = useState(null)
+
+
   console.log(episodesPodcast);
 
   useEffect(() => {
@@ -43,14 +45,15 @@ export default function PodcastDetails() {
 
 
   const name = podcastDetails['im:name']['label'];
-  const artist = podcastDetails['im:artist']['label'];
+  //const artist = podcastDetails['im:artist']['label'];
   const description = podcastDetails.summary.label;
   const imageUrl = podcastDetails['im:image'][2]['label'];
 
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
-      backgroundColor: theme.palette.common.black,
-      color: theme.palette.common.white,
+      backgroundColor: theme.palette.common.white,
+      color: theme.palette.common.black,
+      fontWeight: 'bold'
     },
     [`&.${tableCellClasses.body}`]: {
       fontSize: 14,
@@ -66,61 +69,70 @@ export default function PodcastDetails() {
     },
   }));
 
+
   return (
     <>
-      <Box>
-        <Card align="center" sx={{ width: 245 }}>
-          <CardMedia
-            component="img"
-            sx={{ borderRadius: '4%', width: "170px", m: "1", marginTop: "25px", marginBottom: "10px" }}
-            image={imageUrl}
-          />
-          <CardContent>
-            <Divider />
-            <Typography align="left" variant="subtitle2" sx={{ fontWeight: 'bold', marginTop: "18px" }}>{name}</Typography>
-            <Typography align="left" variant="subtitle2" sx={{ fontStyle: 'italic', marginBottom: "18px" }}>Song by: {name}</Typography>
-            <Divider />
-            {/*<Typography variant="subtitle1" color="text.secondary">{artist}</Typography>*/}
-            <Typography align="left" variant="subtitle2" sx={{ fontWeight: 'bold', marginTop: "18px" }}>Description:</Typography>
-            <Typography align="left" variant="body1" sx={{ fontStyle: 'italic' }}>{description}</Typography>
-          </CardContent>
-        </Card>
+      <Box sx={{ display: "flex", justifyContent: "center", gap: "40px" }}>
+        <Box>
+          <Card align="center" sx={{ width: 245 }}>
+            <CardMedia
+              component="img"
+              sx={{ borderRadius: '4%', width: "170px", m: "1", marginTop: "25px", marginBottom: "10px" }}
+              image={imageUrl}
+            />
+            <CardContent>
+              <Divider />
+              <Typography align="left" variant="subtitle2" sx={{ fontWeight: 'bold', marginTop: "18px" }}>{name}</Typography>
+              <Typography align="left" variant="subtitle2" sx={{ fontStyle: 'italic', marginBottom: "18px" }}>Song by: {name}</Typography>
+              <Divider />
+              {/*<Typography variant="subtitle1" color="text.secondary">{artist}</Typography>*/}
+              <Typography align="left" variant="subtitle2" sx={{ fontWeight: 'bold', marginTop: "18px" }}>Description:</Typography>
+              <Typography align="left" variant="subtitle2" sx={{ fontStyle: 'italic' }}>{description}</Typography>
+            </CardContent>
+          </Card>
+        </Box>
+
 
         <br />
         <br />
 
-        <Card>
-          <CardContent>
-            <Typography variant="h5" component="h2">Episodes: {episodesCount}</Typography>
-          </CardContent>
-        </Card>
+        <Box>
+          <Card>
+            <CardContent>
+              <Typography variant="h5" component="h2" sx={{ fontWeight: 'bold' }}>Episodes: {episodesCount}</Typography>
+            </CardContent>
+          </Card>
 
-        <br />
+          <br />
 
-        <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 700 }} aria-label="customized table">
-            <TableHead>
-              <TableRow>
-                <StyledTableCell>Title</StyledTableCell>
-                <StyledTableCell align="right">Date</StyledTableCell>
-                <StyledTableCell align="right">Duration</StyledTableCell>
-              </TableRow>
-            </TableHead>
+          <TableContainer sx={{marginBottom:"25px"}} component={Paper}>
+            <Table sx={{ minWidth: 1000 }} aria-label="customized table">
+              <TableHead>
+                <TableRow>
+                  <StyledTableCell>Title</StyledTableCell>
+                  <StyledTableCell align="right">Date</StyledTableCell>
+                  <StyledTableCell align="right">Duration</StyledTableCell>
+                </TableRow>
+              </TableHead>
 
-            <TableBody>
-              {episodesPodcast?.map((episode, index) => (
-                <StyledTableRow key={index}>
-                  <StyledTableCell component="th" scope="row">
-                    {episode.trackName}
-                  </StyledTableCell>
-                  <StyledTableCell align="right">{episode.releaseDate}</StyledTableCell>
-                  <StyledTableCell align="right">{episode.trackTimeMillis}</StyledTableCell>
+              <TableBody>
+                {episodesPodcast?.map((episode, index) => (
+                  <React.Fragment key={index}>
+                    <StyledTableRow>
+                      <StyledTableCell component="th" scope="row">
+                        {episode.trackName}
+                      </StyledTableCell>
+                      <StyledTableCell align="right">{episode.releaseDate.slice(0, 10)}</StyledTableCell>
+                      <StyledTableCell align="right">{new Date(episode.trackTimeMillis).toISOString().slice(11, 16)}</StyledTableCell>
+                    </StyledTableRow>
+                  </React.Fragment>
+                ))}
+              </TableBody>
 
-                </StyledTableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
+            </Table>
+          </TableContainer>
+        </Box>
+
       </Box>
 
     </>
