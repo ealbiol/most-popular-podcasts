@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import PodcastCard from "../PodcastCard/PodcastCard";
-import fetchPodcasts from "../../api/podcastApi";
+import { fetchPodcasts } from "../../api/podcastApi";
 import "./PodcastsList.scss"
 import { useContext } from "react";
 import { PodcastContext } from "../../contexts/PodcastContext";
@@ -32,7 +32,6 @@ const PodcastsList = (props) => {
         setPodcasts(recall.entry);
         setNumPodcast(recall.entry.length);
       }
-
     };
     getPodcasts();
   }, []);
@@ -48,6 +47,7 @@ const PodcastsList = (props) => {
           md: "repeat(3, 1fr)",
           lg: "repeat(4, 1fr)",
         }}
+        sx={{m:4}}
         gap={3}
       >
         {podcastFiltered && (

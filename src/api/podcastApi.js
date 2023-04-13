@@ -1,4 +1,4 @@
-const fetchPodcasts = async () => {
+export const fetchPodcasts = async () => {
     const response = await fetch(
       "https://itunes.apple.com/us/rss/toppodcasts/limit=100/genre=1310/json"
     );
@@ -11,5 +11,18 @@ const fetchPodcasts = async () => {
     return data;
   };
   
-  export default fetchPodcasts;
+  
+
+  export const fetchEpisodesPodcast = async (id) => {
+    const response = await fetch(
+      `https://itunes.apple.com/lookup?id=${id}&country=US&media=podcast&entity=podcastEpisode&limit=1000`
+    );
+  
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+  
+    const data = await response.json();
+    return data;
+  };
   

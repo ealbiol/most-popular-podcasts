@@ -1,10 +1,8 @@
 import React, {useEffect} from "react";
-import { Router, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Card, CardMedia, CardContent, Typography, Link, Box } from '@mui/material';
 import { useContext } from "react";
 import { PodcastContext } from "../../contexts/PodcastContext";
-import "./PodcastCard.scss"
-import { Link as RouterLink} from "react-router-dom";
 
 const PodcastCard = ({ podcast }) => {
   const { podcastDetails, setPodcastDetails } = useContext(PodcastContext);
@@ -26,7 +24,8 @@ const PodcastCard = ({ podcast }) => {
   }
   useEffect(() => {
     if(podcastDetails){
-      const attributes = podcast.id.attributes;
+      const attributes = podcastDetails.id.attributes;
+
       const idPodcast = attributes["im:id"];
       navigate(`/podcast/${idPodcast}`);
     }
@@ -41,11 +40,10 @@ const PodcastCard = ({ podcast }) => {
           <CardMedia
             component="img"
             image={imageUrl}
-            sx={{ width: 150, position: "relative", top: "90px" }}
+            sx={{ width: 150, position: "relative", top: "90px", borderRadius: '50%' }}
             alt={`Cover for ${artist.label}`}
-            className="rounded-image"
           />
-          <Card align="center" sx={{ width: 245 }} className="podcast-card">
+          <Card align="center" sx={{ width: 245 }}>
             <CardContent style={{ paddingTop: "100px" }}>
               <Typography gutterBottom variant="h6" component="div">{name.label}</Typography>
               <Typography variant="body2" color="text.secondary">Author: {artist.label}</Typography>
