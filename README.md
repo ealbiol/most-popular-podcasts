@@ -36,6 +36,6 @@ This will create a production build to test in local with serve.
 The podcast details and episodes are currently stored on local storage, but it's important to note that if too many podcasts are clicked, errors may arise due to local storage becoming full. To avoid this issue, a potential solution would be to set up a node server to store the podcast and episode data in a more efficient manner.
 
 ### Displayment of Podcast episodes
-With local development ('npm run dev') you will be able to see all episodes of each podcast. The process to fix that issue in production build is still ongoing.
+With local development ('npm run dev') you will be able to see all episodes of each podcast. Some episodes in production build aren't visible. The process to fix that is still ongoing.
 
 For this reason deploy local development is the most recommend so as to date.
