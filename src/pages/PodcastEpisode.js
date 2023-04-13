@@ -1,8 +1,7 @@
-import React, {useContext} from 'react';
+import React, { useContext } from 'react';
 import { PodcastContext } from '../contexts/PodcastContext';
 import {
     Card,
-    CardMedia,
     CardContent,
     Typography,
     Box,
@@ -22,8 +21,27 @@ export default function PodcastEpisode() {
 
     return (
         <>
-            <Box>
-                <CardPodcaster name={name} artist={artist} description={description} imageUrl={imageUrl}/>
+            <Box sx={{ display: "flex", justifyContent: "center", gap: "40px" }}>
+                <Box>
+                    <CardPodcaster name={name} artist={artist} description={description} imageUrl={imageUrl} />
+                </Box>
+                <Box>
+                    <Card sx={{maxWidth:"700px"}}>
+                        <CardContent>
+                            <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
+                                {selectedEpisode.trackName.substring(selectedEpisode.trackName.indexOf('|') + 1).trim().replace(/^"(.*)"$/, '$1')}
+                            </Typography>
+                            <Typography sx={{marginBottom:"18px"}} variant="body2">
+                                {selectedEpisode.shortDescription}
+                            </Typography>
+                            <Divider />
+
+                            <Typography sx={{marginTop: "18px", marginBottom:"18px"}} variant="body2">
+                                Reserved Space
+                            </Typography>
+                        </CardContent>
+                    </Card>
+                </Box>
             </Box>
         </>
     )

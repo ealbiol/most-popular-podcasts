@@ -12,8 +12,7 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Paper,
-  Divider
+  Paper
 } from '@mui/material';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import { styled } from '@mui/material/styles';
@@ -34,7 +33,7 @@ export default function PodcastDetails() {
     console.log("tracked", episode.trackId);
     navigate(`/podcast/${podcastDetails['id']['attributes']['im:id']}/episode/${episode.trackId}`)
   }
-  
+
 
   const getEpisodesRecord = async (response, id) => {
     let record = [];
@@ -81,6 +80,9 @@ export default function PodcastDetails() {
   const artist = podcastDetails['im:artist']['label'];
   const description = podcastDetails.summary.label;
   const imageUrl = podcastDetails['im:image'][2]['label'];
+  const podcastId = podcastDetails['id']['attributes']['im:id'];
+
+  console.log("podcastDetails", podcastId);
 
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -107,7 +109,13 @@ export default function PodcastDetails() {
     <>
       <Box sx={{ display: "flex", justifyContent: "center", gap: "40px" }}>
 
-        <CardPodcaster imageUrl={imageUrl} name={name} artist={artist} description={description} />
+        <CardPodcaster 
+        imageUrl={imageUrl} 
+        name={name} 
+        artist={artist} 
+        description={description}
+        podcastId={podcastId}
+        />
 
         <br />
         <br />
